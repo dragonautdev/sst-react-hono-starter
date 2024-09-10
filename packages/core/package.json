@@ -1,0 +1,32 @@
+{
+  "name": "@dragonstart/core",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./*": [
+      "./src/*/index.ts",
+      "./src/*.ts"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.609.0",
+    "@aws-sdk/client-sns": "^3.600.0",
+    "@casl/ability": "^6.7.1",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "electrodb": "^2.14.2",
+    "remeda": "^2.2.1",
+    "sst": "3.0.129",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.11",
+    "tsx": "^4.15.7"
+  }
+}
