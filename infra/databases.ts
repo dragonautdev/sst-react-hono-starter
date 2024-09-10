@@ -1,4 +1,4 @@
-export const database = new sst.aws.Dynamo("KvStore", {
+export const kvStore = new sst.aws.Dynamo("KvStore", {
   transform: {
     table: {
       name: `${$app.name}-${$app.stage}-kvstore`,

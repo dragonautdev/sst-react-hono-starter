@@ -3,18 +3,22 @@
 export default $config({
   app(input) {
     return {
-      name: "app-starter",
+      name: "dargonstart",
       removal: input?.stage === "production" ? "retain" : "remove",
       home: "aws",
+      providers: {
+        aws: {
+          region: "us-east-1",
+          profile: 'dragonadmin'
+        },
+      }
     };
   },
   async run() {
     const infra = await import("./infra");
 
     return {
-      adminApp: infra.web.url,
-      auth: infra.authApiDomain.url,
-      restApi: infra.apiV2.url,
+      restApi: infra.restApi.url,
     };
   },
 });
