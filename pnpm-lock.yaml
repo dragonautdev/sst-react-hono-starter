@@ -101,6 +101,9 @@ importers:
       '@aws-sdk/client-sns':
         specifier: ^3.577.0
         version: 3.649.0
+      '@dragonstart/auth':
+        specifier: ../auth
+        version: link:../auth
       '@dragonstart/core':
         specifier: ../core
         version: link:../core

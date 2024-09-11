@@ -1,9 +1,10 @@
+import { UnauthorizedError } from "../errors";
 import { createContext } from "./context";
 
 export interface UserActorProperties {
-  userId: string
-  email: string
-  name: string
+  userId: string;
+  email: string;
+  name: string;
 }
 
 export interface UserActor {
@@ -22,7 +23,7 @@ export const ActorContext = createContext<Actor>();
 export function useUser() {
   const actor = ActorContext.use();
   if (actor.type === "user") return actor.properties;
-  throw new Error(`Actor is "${actor.type}" not UserActor`);
+  throw new UnauthorizedError(`Actor is "${actor.type}" not UserActor`);
 }
 
 export function useActor() {
@@ -36,6 +37,6 @@ export function useActor() {
 export function assertActor<T extends Actor["type"]>(type: T) {
   const actor = useActor();
   if (actor.type !== type)
-    throw new Error(`Unauthorized :: Actor is not "${type}"`);
+    throw new UnauthorizedError(`Actor is not "${type}"`);
   return actor as Extract<Actor, { type: T }>;
 }
