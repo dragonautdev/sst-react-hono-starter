@@ -1,3 +1,4 @@
+import { auth } from "./auth";
 import { kvStore } from "./databases";
 import { domain } from "./dns";
 
@@ -21,7 +22,7 @@ const restApiFn = new sst.aws.Function("RestApi", {
   ],
   environment: {
     APP_URL,
-    // AUTH_PRIVATE_KEY: auth.key.privateKeyPemPkcs8,
+    AUTH_PRIVATE_KEY: auth.key.privateKeyPemPkcs8,
   },
   link: [
     kvStore,

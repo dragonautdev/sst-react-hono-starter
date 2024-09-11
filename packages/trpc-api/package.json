@@ -22,6 +22,7 @@
     "@aws-sdk/client-sesv2": "^3.577.0",
     "@aws-sdk/client-sns": "^3.577.0",
     "@aws-sdk/s3-request-presigner": "^3.645.0",
+    "@dragonstart/auth": "../auth",
     "@dragonstart/core": "../core",
     "@trpc/server": "11.0.0-rc.458",
     "dayjs": "^1.11.10",

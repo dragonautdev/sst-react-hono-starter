@@ -1,7 +1,7 @@
 import { appDb, kvStore } from "./databases";
 import { domain } from "./dns";
 
-export const auth = new sst.aws.Auth("Auth", {
+export const auth = new sst.aws.Auth("AuthFn", {
   authenticator: {
     permissions: [
       {
