@@ -1,14 +1,13 @@
 import { AuthHandler } from "sst/auth";
-import { GoogleAdapter, LinkAdapter } from "sst/auth/adapter";
+import { LinkAdapter } from "sst/auth/adapter";
 import { handle } from "hono/aws-lambda";
 import { session } from "./lib/session";
-import { Resource } from "sst";
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
-import {z} from "zod";
+import { z } from "zod";
 import { EmailPassAdapter } from "./lib/email-pass-adapter";
+import { Accounts } from "@dragonstart/core/accounts";
 
-const MAIN_APP_URL =
-  process.env.AUTH_FRONTEND_URL || "http://localhost:3000";
+const MAIN_APP_URL = process.env.AUTH_FRONTEND_URL || "http://localhost:3000";
 const MAIN_APP_LOGIN = `${MAIN_APP_URL}/auth/sign-in`;
 
 export const app = AuthHandler({
@@ -28,7 +27,7 @@ export const app = AuthHandler({
             },
           });
         }
-        
+
         const emailCmd = new SendEmailCommand({
           Destination: {
             ToAddresses: [email.data],
@@ -63,9 +62,7 @@ export const app = AuthHandler({
   },
   callbacks: {
     auth: {
-      
       async error(error, req) {
-        
         console.error(error);
 
         return new Response("ok", {
@@ -79,7 +76,6 @@ export const app = AuthHandler({
         return true;
       },
       async success(ctx, input, req) {
-
         const redirectResponse = new Response("ok", {
           status: 302,
           headers: {
@@ -88,11 +84,11 @@ export const app = AuthHandler({
         });
 
         try {
-          let user: UserItem | undefined;
+          let user: Accounts.User | undefined;
           let email;
 
           if (input.provider === "classic") {
-            user = (input as any).claims as UserItem;
+            user = (input as any).claims as Accounts.User;
           } else if (input.provider === "google") {
             email = (input as any).tokenset.claims().email;
             if (!email) {
@@ -109,13 +105,9 @@ export const app = AuthHandler({
           }
 
           if (!user) {
-            const userData = await AccountService.entities.user
-              .get({
-                email,
-              })
-              .go();
+            const userData = await Accounts.getUser(email);
 
-            if (!userData || !userData.data || userData.data.status !== 'active' ) {
+            if (!userData) {
               return new Response("ok", {
                 status: 302,
                 headers: {
@@ -124,10 +116,8 @@ export const app = AuthHandler({
               });
             }
 
-            user = userData.data;
+            user = userData;
           }
-
-          const assignment = assignedAccounts.data.userAssignment[0];
 
           const HOURS = 60 * 60 * 1000;
 
