@@ -1,4 +1,4 @@
-import { kvStore } from "./databases";
+import { appDb, kvStore } from "./databases";
 import { domain } from "./dns";
 
 export const auth = new sst.aws.Auth("Auth", {
@@ -17,7 +17,7 @@ export const auth = new sst.aws.Auth("Auth", {
       AUTH_FRONTEND_URL: $dev ? 'http://localhost:3000' : `https://${domain}`,
       SENDER_EMAIL: process.env.SENDER_EMAIL!,
     },
-    link: [kvStore],
+    link: [kvStore, appDb],
   },
 });
 
