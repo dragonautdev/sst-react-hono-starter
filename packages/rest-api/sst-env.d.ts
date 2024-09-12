@@ -44,5 +44,9 @@ declare module "sst" {
       "type": "sst.aws.Function"
       "url": string
     }
+    "WebApp": {
+      "type": "sst.aws.StaticSite"
+      "url": string
+    }
   }
 }
