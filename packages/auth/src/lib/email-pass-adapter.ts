@@ -29,9 +29,7 @@ export const EmailPassAdapter = (() => {
         const token = await session.create({
           type: "user",
           properties: {
-            userId: user.userId,
-            email: user.email,
-            name: user.name,
+            userId: user.userId
           },
         });
 

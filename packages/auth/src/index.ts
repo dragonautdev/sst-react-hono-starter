@@ -125,9 +125,7 @@ export const app = AuthHandler({
             type: "user",
             expiresIn: 30 * 24 * HOURS,
             properties: {
-              userId: user.userId,
-              email: user.email,
-              name: user.name,
+              userId: user.userId
             },
           });
         } catch (error) {

@@ -12,7 +12,7 @@ export const sampleRouter = router({
       };
     } else {
       return {
-        message: "Sample API is running. User is authenticated as " + actor.properties.name,
+        message: "Sample API is running. User is authenticated as " + actor.properties.userId,
       };
     }
     
@@ -20,7 +20,7 @@ export const sampleRouter = router({
   protected: protectedProcedure.query(({ ctx }) => {
     const session = useUser();
     return {
-      message: "Protected Sample API is running. User is " + session.name,
+      message: "Protected Sample API is running. User is " + session.userId,
     };
   })
 });

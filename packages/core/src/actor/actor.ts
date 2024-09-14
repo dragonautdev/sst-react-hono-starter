@@ -3,8 +3,6 @@ import { createContext } from "./context";
 
 export interface UserActorProperties {
   userId: string;
-  email: string;
-  name: string;
 }
 
 export interface UserActor {

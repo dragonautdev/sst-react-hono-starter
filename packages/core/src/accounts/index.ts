@@ -1,9 +1,9 @@
 import { z } from "zod";
-import { AccountService, CreateUserItem, UserItem } from "./models";
+import { AccountService, UserItem } from "./models";
 import { fn } from "../utils/fn";
 import { createId, hashPassword } from "../utils";
 
-export module Accounts {
+export namespace Accounts {
 
   export type User = UserItem;
 

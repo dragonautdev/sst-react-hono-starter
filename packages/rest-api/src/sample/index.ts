@@ -6,7 +6,7 @@ export const SampleApi = new Hono();
 SampleApi.get("/private", (c) => {
   const session = useUser();
   return c.json({
-    message: "Sample API is running. User is " + session.name,
+    message: "Sample API is running. User is " + session.userId,
   });
 });
 
