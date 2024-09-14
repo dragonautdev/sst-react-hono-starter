@@ -1,10 +1,9 @@
 import { useUser } from "@dragonstart/core/actor";
 import { protectedProcedure, router } from "../trpc";
 import { Keys } from "@dragonstart/core/keys";
-import { CreateKey } from "./schemas";
 import { pick } from "remeda";
 
-export const accountRouter = router({
+export const apiKeysRouter = router({
   createKey: protectedProcedure
     .input(Keys.CreateKey.pick({ name: true }))
     .mutation(async ({ ctx, input }) => {

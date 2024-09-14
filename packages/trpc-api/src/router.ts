@@ -1,9 +1,11 @@
 import { router } from './trpc'
 import { sampleRouter } from './sample/router'
 import { accountRouter } from './account/router';
+import { apiKeysRouter } from './api-keys/router';
 
 export const appRouter = router({
   account: accountRouter,
+  apiKeys: apiKeysRouter,
   sample: sampleRouter
 });
 
