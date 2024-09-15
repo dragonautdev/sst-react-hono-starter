@@ -16,17 +16,22 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@auth/drizzle-adapter": "^1.4.2",
     "@aws-sdk/client-dynamodb": "^3.609.0",
     "@aws-sdk/client-sns": "^3.600.0",
     "@casl/ability": "^6.7.1",
     "@paralleldrive/cuid2": "^2.2.2",
+    "drizzle-orm": "^0.33.0",
     "electrodb": "^2.14.2",
+    "next-auth": "^4.24.7",
+    "postgres": "^3.4.4",
     "remeda": "^2.2.1",
     "sst": "3.1.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.12.11",
+    "drizzle-kit": "^0.24.2",
     "tsx": "^4.15.7"
   }
 }
