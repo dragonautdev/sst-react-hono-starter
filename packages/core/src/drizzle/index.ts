@@ -4,7 +4,7 @@ import { users } from "./schema";
 
 const connectionString = process.env.DATABASE_URL;
 
-const client = postgres(connectionString!, { prepare: false });
-const db = drizzle(client);
+export const client = postgres(connectionString!, { prepare: false });
+export const db = drizzle(client);
 
 const allUsers = await db.select().from(users);

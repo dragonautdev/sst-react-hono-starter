@@ -1,4 +1,4 @@
-import { router } from './trpc'
+import { router, createCallerFactory } from './trpc'
 import { sampleRouter } from './sample/router'
 import { accountRouter } from './account/router';
 import { apiKeysRouter } from './api-keys/router';
@@ -10,3 +10,4 @@ export const appRouter = router({
 });
 
 export type AppRouter = typeof appRouter;
+export const createCaller = createCallerFactory(appRouter);

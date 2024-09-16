@@ -1,10 +1,11 @@
 import { CoreError } from "@dragonstart/core/errors";
 import { TRPCError, initTRPC } from "@trpc/server";
-import { CreateAWSLambdaContextOptions,  } from "@trpc/server/adapters/aws-lambda";
+import { CreateAWSLambdaContextOptions } from "@trpc/server/adapters/aws-lambda";
 import { LambdaFunctionURLEvent } from "aws-lambda";
 import { session } from "@dragonstart/auth/session";
 import { ActorContext } from "@dragonstart/core/actor";
 import SuperJSON from "superjson";
+import { db } from "@dragonstart/core/drizzle";
 
 // created for each request
 export const createContext = async ({
@@ -25,6 +26,7 @@ export const t = initTRPC.context<ApiRequestContext>().create({
 
 export const router = t.router;
 export const publicProcedure = t.procedure;
+export const createCallerFactory = t.createCallerFactory;
 
 const errorHandlerMiddleware = t.middleware(({ ctx, next }) => {
   try {
@@ -114,3 +116,11 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
 export const protectedProcedure = t.procedure.use(
   errorHandlerMiddleware.unstable_pipe(authMiddleware)
 );
+
+export const createTRPCContext = async (opts: { headers: Headers }) => {
+  return {
+    ...opts,
+    db,
+    session,
+  };
+};
