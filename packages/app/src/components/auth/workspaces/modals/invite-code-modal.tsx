@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../../Auth-Button";
-import { CopyButton, Logo, Modal } from "~/components/ui";
+import { CopyButton, Modal } from "~/components/ui";
 import { APP_DOMAIN } from "~/utils";
 import {
   Dispatch,
@@ -13,7 +13,6 @@ import { api } from "~/trpc/react";
 import { useParams } from "next/navigation";
 import { useToast } from "~/utils/hooks";
 
-
 function InviteCodeModal({
   showInviteCodeModal,
   setShowInviteCodeModal,
@@ -25,45 +24,42 @@ function InviteCodeModal({
   id: string;
   inviteCode: string;
 }) {
-
-
   const inviteLink = useMemo(() => {
     return `${APP_DOMAIN}/invites/${inviteCode}`;
   }, [inviteCode]);
 
   const params = useParams();
-  const {toast} = useToast()
-  const utils = api.useUtils()
+  const { toast } = useToast();
+  const utils = api.useUtils();
 
-  const {isLoading, mutateAsync} = api.workspace.resetInviteLink.useMutation({
+  const { isLoading, mutateAsync } = api.workspace.resetInviteLink.useMutation({
     onError: (error) => {
       toast({
         description: "Failed to reset the invite link",
-        variant: "destructive"
-      })
+        variant: "destructive",
+      });
     },
     onSettled: () => {
       toast({
-        description: "Invite code reset succesfully"
-      })
-      utils.workspace.getSpecificWorkspace.invalidate()
+        description: "Invite code reset succesfully",
+      });
+      utils.workspace.getSpecificWorkspace.invalidate();
     },
     onSuccess: () => {
-      alert("This is the on Success")
+      alert("This is the on Success");
       toast({
-        description: "Invite code reset succesfully"
-      })
-      utils.workspace.getSpecificWorkspace.invalidate()
-    }
-  })
+        description: "Invite code reset succesfully",
+      });
+      utils.workspace.getSpecificWorkspace.invalidate();
+    },
+  });
 
   return (
     <Modal
       showModal={showInviteCodeModal}
-      setShowModal={setShowInviteCodeModal}
-    >
+      setShowModal={setShowInviteCodeModal}>
       <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 px-4 py-4 pt-8 sm:px-16">
-        <Logo />
+        {/* <Logo /> */}
         <h3 className="text-lg font-medium">Invite Link</h3>
         <p className="text-center text-sm text-gray-500">
           Allow other people to join your workspace through the link below.
@@ -82,7 +78,9 @@ function InviteCodeModal({
           variant="secondary"
           loading={isLoading}
           onClick={() => {
-            mutateAsync({workspaceSlug: params.accountSlug as unknown as string})
+            mutateAsync({
+              workspaceSlug: params.accountSlug as unknown as string,
+            });
           }}
         />
       </div>
@@ -115,6 +113,6 @@ export function useInviteCodeModal({
       setShowInviteCodeModal,
       InviteCodeModal: InviteCodeModalCallback,
     }),
-    [setShowInviteCodeModal, InviteCodeModalCallback],
+    [setShowInviteCodeModal, InviteCodeModalCallback]
   );
 }

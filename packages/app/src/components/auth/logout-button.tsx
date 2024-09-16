@@ -1,7 +1,7 @@
 import React from "react";
 import { signOut } from "next-auth/react";
 import { LogOut } from "lucide-react";
-import va from "@vercel/analytics";
+
 
 export default function LogoutButton() {
   return (
@@ -11,8 +11,7 @@ export default function LogoutButton() {
         signOut({
           callbackUrl: "/login",
         });
-        // track logout event
-        va.track("Logout");
+
       }}
     >
       <i className={`inline-flex  text-gray-500`}>

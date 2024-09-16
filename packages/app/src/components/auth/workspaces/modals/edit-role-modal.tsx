@@ -1,6 +1,6 @@
 "use client";
 import { UserProps } from "~/utils/types";
-import { Avatar, BlurImage, Modal, Logo } from "~/components/ui";
+import { Avatar, Modal } from "~/components/ui";
 import { Button } from "../../Auth-Button";
 import {
   Dispatch,

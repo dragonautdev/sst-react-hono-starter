@@ -29,7 +29,7 @@ export default function WorkspaceSwitcher() {
 
   const selected = useMemo(() => {
     const selectedWorkspace = workspaces?.find(
-      (workspace) => workspace.slug === slug,
+      (workspace) => workspace.slug === slug
     );
 
     if (slug && workspaces && selectedWorkspace) {
@@ -71,8 +71,7 @@ export default function WorkspaceSwitcher() {
         <PopoverTrigger className="bg-gray-300 rounded-md w-[200px]">
           <button
             onClick={() => setOpenPopover(!openPopover)}
-            className="flex items-center justify-between rounded-lg  p-1.5 text-left text-sm transition-all duration-75 hover:bg-gray-100 focus:outline-none active:bg-gray-200"
-          >
+            className="flex items-center justify-between rounded-lg  p-1.5 text-left text-sm transition-all duration-75 hover:bg-gray-100 focus:outline-none active:bg-gray-200">
             <div className="flex items-center space-x-3 pr-2">
               <BlurImage
                 src={selected.image}
@@ -85,8 +84,7 @@ export default function WorkspaceSwitcher() {
               <div
                 className={`${
                   key ? "hidden" : "flex"
-                } items-center space-x-3 sm:flex`}
-              >
+                } items-center space-x-3 sm:flex`}>
                 <span className="inline-block max-w-[100px] truncate text-sm font-medium sm:max-w-[200px]">
                   {selected.name}
                 </span>
@@ -141,7 +139,7 @@ function WorkspaceList({
         return pathname?.replace(selected.slug, slug).split("?")[0] || "/";
       }
     },
-    [domain, key, pathname, selected.slug],
+    [domain, key, pathname, selected.slug]
   );
 
   return (
@@ -152,8 +150,7 @@ function WorkspaceList({
           <Link
             href="/workspaces"
             onClick={() => setOpenPopover(false)}
-            className="rounded-md border border-gray-200 px-2 py-1 text-xs transition-colors hover:bg-gray-100"
-          >
+            className="rounded-md border border-gray-200 px-2 py-1 text-xs transition-colors hover:bg-gray-100">
             View All
           </Link>
         )}
@@ -167,8 +164,7 @@ function WorkspaceList({
             } transition-all duration-75`}
             href={href(slug)}
             shallow={false}
-            onClick={() => setOpenPopover(false)}
-          >
+            onClick={() => setOpenPopover(false)}>
             <BlurImage
               src={logo || `${DICEBEAR_AVATAR_URL}${name}`}
               width={20}
@@ -179,8 +175,7 @@ function WorkspaceList({
             <span
               className={`block truncate text-sm sm:max-w-[140px] ${
                 selected.slug === slug ? "font-medium" : "font-normal"
-              }`}
-            >
+              }`}>
               {name}
             </span>
             {selected.slug === slug ? (
@@ -197,8 +192,7 @@ function WorkspaceList({
           setOpenPopover(false);
           setShowAddWorkspaceModal(true);
         }}
-        className="flex w-full cursor-pointer items-center space-x-2 rounded-md p-2 transition-all duration-75 hover:bg-gray-100"
-      >
+        className="flex w-full cursor-pointer items-center space-x-2 rounded-md p-2 transition-all duration-75 hover:bg-gray-100">
         <PlusCircle className="h-6 w-6 text-gray-500" />
         <span className="block truncate">Add a new workspace</span>
       </button>

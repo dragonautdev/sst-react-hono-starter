@@ -1,5 +1,5 @@
 import { UserProps } from "~/utils/types";
-import { Avatar, BlurImage, Logo, Modal } from "~/components/ui";
+import { Avatar, BlurImage, Modal } from "~/components/ui";
 import { Button } from "../../Auth-Button";
 import { useMediaQuery } from "~/utils/hooks";
 import { useSession } from "next-auth/react";
@@ -11,8 +11,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { toast } from "sonner";
-import { mutate } from "swr";
+
 
 function RemoveTeammateModal({
   showRemoveTeammateModal,
@@ -33,7 +32,7 @@ function RemoveTeammateModal({
 }) {
   const router = useRouter();
   const [removing, setRemoving] = useState(false);
-//   const { id: workspaceId, name: workspaceName, logo } = useWorkspace();
+  //   const { id: workspaceId, name: workspaceName, logo } = useWorkspace();
   const { data: session } = useSession();
   const { id, name, email } = user;
   const { isMobile } = useMediaQuery();
@@ -41,8 +40,7 @@ function RemoveTeammateModal({
   return (
     <Modal
       showModal={showRemoveTeammateModal}
-      setShowModal={setShowRemoveTeammateModal}
-    >
+      setShowModal={setShowRemoveTeammateModal}>
       <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 px-4 py-4 pt-8 sm:px-16">
         {logo ? (
           <BlurImage
@@ -53,29 +51,30 @@ function RemoveTeammateModal({
             height={20}
           />
         ) : (
-          <Logo />
+          <h3>Logo</h3>
+          // <Logo />
         )}
         <h3 className="text-lg font-medium">
           {invite
             ? "Revoke Invitation"
             : session?.user?.email === email
-              ? "Leave Workspace"
-              : "Remove Teammate"}
+            ? "Leave Workspace"
+            : "Remove Teammate"}
         </h3>
         <p className="text-center text-sm text-gray-500">
           {invite
             ? "This will revoke "
             : session?.user?.email === email
-              ? "You're about to leave "
-              : "This will remove "}
+            ? "You're about to leave "
+            : "This will remove "}
           <span className="font-semibold text-black">
             {session?.user?.email === email ? workspaceName : name || email}
           </span>
           {invite
             ? "'s invitation to join your workspace. "
             : session?.user?.email === email
-              ? ". You will lose all access to this workspace. "
-              : " from your workspace. "}
+            ? ". You will lose all access to this workspace. "
+            : " from your workspace. "}
           Are you sure you want to continue?
         </p>
       </div>
@@ -104,28 +103,29 @@ function RemoveTeammateModal({
               {
                 method: "DELETE",
                 headers: { "Content-Type": "application/json" },
-              },
+              }
             ).then(async (res) => {
               if (res.status === 200) {
-                await mutate(
-                  `/api/workspaces/${workspaceId}/${invite ? "invites" : "users"}`,
-                );
-                if (session?.user?.email === email) {
-                  await mutate("/api/workspaces");
-                  router.push("/");
-                } else {
-                  setShowRemoveTeammateModal(false);
-                }
-                toast.success(
-                  session?.user?.email === email
-                    ? "You have left the workspace!"
-                    : invite
-                      ? "Successfully revoked invitation!"
-                      : "Successfully removed teammate!",
-                );
+                // add logic for this stuff below
+                // await mutate(
+                //   `/api/workspaces/${workspaceId}/${invite ? "invites" : "users"}`,
+                // );
+                // if (session?.user?.email === email) {
+                //   await mutate("/api/workspaces");
+                //   router.push("/");
+                // } else {
+                //   setShowRemoveTeammateModal(false);
+                // }
+                // toast.success(
+                //   session?.user?.email === email
+                //     ? "You have left the workspace!"
+                //     : invite
+                //     ? "Successfully revoked invitation!"
+                //     : "Successfully removed teammate!"
+                // );
               } else {
                 const { error } = await res.json();
-                toast.error(error.message);
+                // toast.error(error.message);
               }
               setRemoving(false);
             });
@@ -170,6 +170,6 @@ export function useRemoveTeammateModal({
       setShowRemoveTeammateModal,
       RemoveTeammateModal: RemoveTeammateModalCallback,
     }),
-    [setShowRemoveTeammateModal, RemoveTeammateModalCallback],
+    [setShowRemoveTeammateModal, RemoveTeammateModalCallback]
   );
 }

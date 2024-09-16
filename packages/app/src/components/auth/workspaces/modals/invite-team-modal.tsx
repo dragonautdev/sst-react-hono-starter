@@ -1,8 +1,8 @@
 "use client";
-import { BlurImage, Input, Logo, Modal } from "~/components/ui";
+import { Input, Modal } from "~/components/ui";
 import { Button } from "../../Auth-Button";
 import { useMediaQuery } from "~/utils/hooks";
-import va from "@vercel/analytics";
+
 import {
   Dispatch,
   SetStateAction,
@@ -76,8 +76,7 @@ function InviteTeammateModal({
   return (
     <Modal
       showModal={showInviteTeammateModal}
-      setShowModal={setShowInviteTeammateModal}
-    >
+      setShowModal={setShowInviteTeammateModal}>
       <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 px-4 py-4 pt-8 sm:px-16">
         {/* {logo ? (
           <BlurImage
@@ -98,8 +97,7 @@ function InviteTeammateModal({
       </div>
       <form
         onSubmit={submitHandler}
-        className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 text-left sm:px-16"
-      >
+        className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 text-left sm:px-16">
         <div>
           <label htmlFor="email" className="block text-sm text-gray-700">
             Email
@@ -161,6 +159,6 @@ export function useInviteTeammateModal({
       setShowInviteTeammateModal,
       InviteTeammateModal: InviteTeammateModalCallback,
     }),
-    [setShowInviteTeammateModal, InviteTeammateModalCallback],
+    [setShowInviteTeammateModal, InviteTeammateModalCallback]
   );
 }

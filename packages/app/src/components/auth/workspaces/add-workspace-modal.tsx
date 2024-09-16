@@ -1,10 +1,10 @@
 "use client";
 
 import { AlertCircleFill, LoadingSpinner } from "~/components/ui";
+
 import { useMediaQuery, useRouterStuff } from "~/utils/hooks";
 import { InfoTooltip, Modal } from "~/components/ui";
 import slugify from "@sindresorhus/slugify";
-import va from "@vercel/analytics";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   Dispatch,
@@ -15,7 +15,7 @@ import {
   useState,
 } from "react";
 import { useToast } from "~/utils/hooks/UseToast";
-import Button from "~/components/ui/Button";
+import Button from "~/components/ui/button";
 import { TooltipProvider } from "~/components/ui";
 import { Input } from "~/components/ui";
 import { api } from "~/trpc/react";
@@ -99,23 +99,20 @@ function AddWorkspaceModalHelper({
               del: ["newWorkspace"],
             });
           }
-        }}
-      >
+        }}>
         <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 px-4 py-4 pt-8 sm:px-16">
           <h3 className="text-lg font-medium">Create a new workspace</h3>
           <a
-            href="https://dub.co/help/article/what-is-a-workspace"
+            href="/"
             target="_blank"
-            className="-translate-y-2 text-center text-xs text-gray-500 underline underline-offset-4 hover:text-gray-800"
-          >
+            className="-translate-y-2 text-center text-xs text-gray-500 underline underline-offset-4 hover:text-gray-800">
             What is a workspace?
           </a>
         </div>
 
         <form
           onSubmit={onSubmit}
-          className="flex flex-col space-y-6 bg-gray-50 px-4 py-8 text-left sm:px-16"
-        >
+          className="flex flex-col space-y-6 bg-gray-50 px-4 py-8 text-left sm:px-16">
           <div>
             <label htmlFor="name" className="flex items-center space-x-2">
               <p className="block text-sm font-medium text-gray-700">
@@ -218,6 +215,6 @@ export function useAddWorkspaceModal() {
 
   return useMemo(
     () => ({ setShowAddWorkspaceModal, AddWorkspaceModal }),
-    [setShowAddWorkspaceModal, AddWorkspaceModal],
+    [setShowAddWorkspaceModal, AddWorkspaceModal]
   );
 }

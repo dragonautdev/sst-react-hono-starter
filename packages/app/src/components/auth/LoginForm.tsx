@@ -100,8 +100,7 @@ export default function LoginForm() {
               toast.error("Error sending email - try again?");
             });
         }}
-        className="flex flex-col space-y-3"
-      >
+        className="flex flex-col space-y-3">
         {showEmailOption && (
           <div>
             <div className="mb-4 mt-1 border-t border-gray-300" />
@@ -137,28 +136,7 @@ export default function LoginForm() {
           disabled={clickedGoogle || clickedSSO}
         />
       </form>
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          setClickedSSO(true);
-          fetch("/api/auth/saml/verify", {
-            method: "POST",
-            body: JSON.stringify({ slug: e.currentTarget.slug.value }),
-          }).then(async (res) => {
-            const { data, error } = await res.json();
-            if (error) {
-              toast.error(error);
-              setClickedSSO(false);
-              return;
-            }
-            await signIn("saml", undefined, {
-              tenant: data.workspaceId,
-              product: "Dub",
-            });
-          });
-        }}
-        className="flex flex-col space-y-3"
-      ></form>
+      <form onSubmit={() => {}} className="flex flex-col space-y-3"></form>
       {noSuchAccount ? (
         <p className="text-center text-sm text-red-500">
           No such account.{" "}
@@ -172,8 +150,7 @@ export default function LoginForm() {
           Don't have an account?{" "}
           <Link
             href="/register"
-            className="font-semibold text-gray-500 transition-colors hover:text-black"
-          >
+            className="font-semibold text-gray-500 transition-colors hover:text-black">
             Sign up
           </Link>
         </p>
