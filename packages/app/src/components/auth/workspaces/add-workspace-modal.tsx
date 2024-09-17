@@ -73,7 +73,6 @@ function AddWorkspaceModalHelper({
       //   setSlugError("Slug is already in use.");
       // }
       if (res) {
-        va.track("Created Workspace");
         router.push(`/dashboard/${slug}/farmers`);
         toast({
           description: "Successfully created workspace!",
