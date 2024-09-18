@@ -32,6 +32,7 @@ export const users = pgTable("user", {
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
+  defaultWorkspace: text("defaultWorkspace"),
 });
 
 export const accounts = pgTable(
@@ -104,7 +105,10 @@ export const authenticators = pgTable(
 export const project = pgTable(
   "Project",
   {
-    id: text("id").primaryKey().notNull(),
+    id: text("id")
+      .primaryKey()
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     name: text("name").notNull(),
     slug: text("slug").notNull(),
     logo: text("logo"),
@@ -156,7 +160,10 @@ export const project = pgTable(
 export const projectUsers = pgTable(
   "ProjectUsers",
   {
-    id: text("id").primaryKey().notNull(),
+    id: text("id")
+      .primaryKey()
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
     role: role("role").default("member").notNull(),
     createdAt: timestamp("createdAt", { precision: 3, mode: "string" })
       .default(sql`CURRENT_TIMESTAMP`)

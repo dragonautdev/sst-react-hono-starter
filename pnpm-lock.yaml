@@ -24,9 +24,6 @@ importers:
       '@auth/drizzle-adapter':
         specifier: ^1.4.2
         version: 1.5.0
-      '@auth/prisma-adapter':
-        specifier: ^2.5.0
-        version: 2.5.0(@prisma/client@5.19.1)
       '@dragonstart/core':
         specifier: 'workspace:'
         version: link:../core
@@ -308,15 +305,24 @@ importers:
       '@dragonstart/core':
         specifier: ../core
         version: link:../core
+      '@trpc/client':
+        specifier: ^10.45.2
+        version: 10.45.2(@trpc/server@11.0.0-rc.458)
       '@trpc/server':
         specifier: 11.0.0-rc.458
         version: 11.0.0-rc.458
       dayjs:
         specifier: ^1.11.10
         version: 1.11.13
+      drizzle-orm:
+        specifier: ^0.33.0
+        version: 0.33.0(postgres@3.4.4)(react@18.3.1)
       jose:
         specifier: ^5.6.2
         version: 5.9.2
+      nanoid:
+        specifier: ^5.0.7
+        version: 5.0.7
       openid-client:
         specifier: ^5.6.5
         version: 5.7.0
@@ -463,19 +469,6 @@ packages:
     resolution: {integrity: sha512-JLeooOEoCulPjoLJa2IBKX8RSgSfkhmyaAeO8Xr37y+fitsEvJNqe0SsaRw3D8nXDasppSaop4uUT3ViXP+OZw==}
     dependencies:
       '@auth/core': 0.35.0
-    transitivePeerDependencies:
-      - '@simplewebauthn/browser'
-      - '@simplewebauthn/server'
-      - nodemailer
-    dev: false
-
-  /@auth/prisma-adapter@2.5.0(@prisma/client@5.19.1):
-    resolution: {integrity: sha512-A+sd+mqV+7i9a5FcP9oZSIJTBHsidd5xA0abGSaAeek8OaA1LebbX20kjggFRIeP/UlKiQERXar/e1Q4mJjp/w==}
-    peerDependencies:
-      '@prisma/client': '>=2.26.0 || >=3 || >=4 || >=5'
-    dependencies:
-      '@auth/core': 0.35.0
-      '@prisma/client': 5.19.1(prisma@4.16.2)
     transitivePeerDependencies:
       - '@simplewebauthn/browser'
       - '@simplewebauthn/server'
@@ -4699,6 +4692,14 @@ packages:
       react: 18.3.1
     dev: false
 
+  /@trpc/client@10.45.2(@trpc/server@11.0.0-rc.458):
+    resolution: {integrity: sha512-ykALM5kYWTLn1zYuUOZ2cPWlVfrXhc18HzBDyRhoPYN0jey4iQHEFSEowfnhg1RvYnrAVjNBgHNeSAXjrDbGwg==}
+    peerDependencies:
+      '@trpc/server': 10.45.2
+    dependencies:
+      '@trpc/server': 11.0.0-rc.458
+    dev: false
+
   /@trpc/client@11.0.0-rc.502(@trpc/server@11.0.0-rc.502):
     resolution: {integrity: sha512-ysFQ3wHnjzLcAqeuwx9/B/YV+2XN/kmfAdTUG+O/SUAdP2wAwo6XbhOxlHw0HWS5pDCsTfJkxDr1nMVkuFM07Q==}
     peerDependencies:
@@ -6256,6 +6257,12 @@ packages:
     resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  /nanoid@5.0.7:
+    resolution: {integrity: sha512-oLxFY2gd2IqnjcYyOXD8XGCftpGtZP2AbHbOkthDkvRywH5ayNtPVy9YlOPcHckXzbLTCHpkb7FB+yuxKV13pQ==}
+    engines: {node: ^18 || >=20}
+    hasBin: true
+    dev: false
 
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}

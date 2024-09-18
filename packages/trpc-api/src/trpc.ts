@@ -6,7 +6,10 @@ import { session } from "@dragonstart/auth/session";
 import { ActorContext } from "@dragonstart/core/actor";
 import SuperJSON from "superjson";
 import { db } from "@dragonstart/core/drizzle";
+import { auth } from "@dragonstart/core/auth";
 
+const auth_session = await auth();
+const user = await auth_session?.user;
 // created for each request
 export const createContext = async ({
   event,
@@ -15,6 +18,9 @@ export const createContext = async ({
   return {
     event,
     context,
+    db,
+    auth_session,
+    user,
   };
 };
 
@@ -117,6 +123,7 @@ export const protectedProcedure = t.procedure.use(
   errorHandlerMiddleware.unstable_pipe(authMiddleware)
 );
 
+export const mergeRouters = t.mergeRouters;
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     ...opts,
