@@ -1,14 +1,14 @@
 import { TRPCError } from "@trpc/server";
-import { createTRPCRouter, protectedProcedure } from "../../trpc";
+import { router, protectedProcedure } from "../trpc";
 import { z } from "zod";
-import { hashToken } from "~/utils/lib/auth/hashToken";
+import { hashToken } from "../utils/functions";
 import { randomBytes } from "crypto";
-import { sendEmail } from "~/emails";
-import WorkspaceInvite from "~/emails/workspace-invite";
-import { router } from "../trpc";
+import { eq } from "drizzle-orm";
+// import { sendEmail } from "~/emails";
+// import WorkspaceInvite from "~/emails/workspace-invite";
 
-import { projectUsers, projectInvite, verificationToken } from "~/db/schema"; // Adjust based on your Drizzle schema imports
 
+import { projectUsers, projectInvite, verificationTokens } from "@dragonstart/core/drizzle/schema";
 export const invites = router({
   sendInvite: protectedProcedure
     .input(
@@ -21,33 +21,30 @@ export const invites = router({
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const [alreadyInWorkspace, workspaceUserCount, workspaceInviteCount] =
+      const [alreadyInWorkspace] =
         await Promise.all([
           ctx.db
             .select()
             .from(projectUsers)
-            .where({
-              projectId: input.workspaceId,
-              email: input.email,
-            })
+            .where(eq(projectUsers.projectId, input.workspaceId))
             .limit(1)
             .execute(),
-          ctx.db
-            .select()
-            .from(projectUsers)
-            .where({
-              projectId: input.workspaceId,
-            })
-            .count()
-            .execute(),
-          ctx.db
-            .select()
-            .from(projectInvite)
-            .where({
-              projectId: input.workspaceId,
-            })
-            .count()
-            .execute(),
+          // ctx.db
+          //   .select()
+          //   .from(projectUsers)
+          //   .where({
+          //     projectId: input.workspaceId,
+          //   })
+          //   .count()
+          //   .execute(),
+          // ctx.db
+          //   .select()
+          //   .from(projectInvite)
+          //   .where({
+          //     projectId: input.workspaceId,
+          //   })
+          //   .count()
+          //   .execute(),
         ]);
 
       if (alreadyInWorkspace.length > 0) {
@@ -70,11 +67,11 @@ export const invites = router({
       const expires = new Date(Date.now() + TWO_WEEKS_IN_SECONDS * 1000);
 
       try {
-        await db
+        await ctx.db
           .insert(projectInvite)
           .values({
             email: input.email,
-            expires,
+            expires: expires.toISOString(),
             projectId: input.workspaceId,
           })
           .execute();
@@ -89,8 +86,8 @@ export const invites = router({
         }
       }
 
-      await db
-        .insert(verificationToken)
+      await ctx.db
+        .insert(verificationTokens)
         .values({
           identifier: input.email,
           token: await hashToken(token, { secret: true }),
@@ -107,17 +104,17 @@ export const invites = router({
 
       const url = `${process.env.NEXTAUTH_URL}/invites?email=${input.email}&workspaceSlug=${input.workspaceSlug}`;
 
-      return await sendEmail({
-        subject: `You've been invited to join a workspace on ${process.env.NEXT_PUBLIC_APP_NAME}`,
-        email: input.email,
-        react: WorkspaceInvite({
-          email: input.email,
-          appName: process.env.NEXT_PUBLIC_APP_NAME as string,
-          url,
-          workspaceName: input.workspaceName,
-          workspaceUser: ctx?.session?.user?.name || null,
-          workspaceUserEmail: ctx?.session?.user?.email || null,
-        }),
-      });
+      // return await sendEmail({
+      //   subject: `You've been invited to join a workspace on ${process.env.NEXT_PUBLIC_APP_NAME}`,
+      //   email: input.email,
+      //   react: WorkspaceInvite({
+      //     email: input.email,
+      //     appName: process.env.NEXT_PUBLIC_APP_NAME as string,
+      //     url,
+      //     workspaceName: input.workspaceName,
+      //     workspaceUser: ctx?.session?.user?.name || null,
+      //     workspaceUserEmail: ctx?.session?.user?.email || null,
+      //   }),
+      // });
     }),
 });

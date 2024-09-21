@@ -8,13 +8,14 @@ import SuperJSON from "superjson";
 import { db } from "@dragonstart/core/drizzle";
 import { auth } from "@dragonstart/core/auth";
 
-const auth_session = await auth();
-const user = await auth_session?.user;
+
 // created for each request
 export const createContext = async ({
   event,
   context,
 }: CreateAWSLambdaContextOptions<LambdaFunctionURLEvent>) => {
+  const auth_session = await auth();
+  const user = await auth_session?.user;
   return {
     event,
     context,

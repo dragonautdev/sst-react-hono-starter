@@ -1,0 +1,1 @@
+ALTER TABLE "ProjectUsers" DROP COLUMN IF EXISTS "role";

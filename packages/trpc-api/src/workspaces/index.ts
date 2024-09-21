@@ -1,4 +1,4 @@
-import { mergeRouters } from "../trpc.js";
+import { mergeRouters } from "../trpc";
 import { getSpecificWorkSpace } from "./get-specific-workspace";
 import { addWorkSpace } from "./add-worksapce";
 import { fetchAllWorkspaces } from "./fetch-all-workspace";

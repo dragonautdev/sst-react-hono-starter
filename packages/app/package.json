@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "sst dev next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -21,9 +21,9 @@
     "@radix-ui/react-tooltip": "^1.1.2",
     "@sindresorhus/slugify": "^2.2.1",
     "@tanstack/react-query": "^5.55.4",
-    "@trpc/client": "^11.0.0-rc.446",
+    "@trpc/client": "^11.0.0-rc.458",
     "@trpc/react-query": "11.0.0-rc.477",
-    "@trpc/server": "^11.0.0-rc.446",
+    "@trpc/server": "11.0.0-rc.458",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.5.4",

@@ -7,6 +7,7 @@ import { ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
+
 export default function WelcomePageClient() {
   const { setShowAddWorkspaceModal, AddWorkspaceModal } =
     useAddWorkspaceModal();

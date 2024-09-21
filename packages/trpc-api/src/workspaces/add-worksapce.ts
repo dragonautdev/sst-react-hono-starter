@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 import { TRPCClientError } from "@trpc/client";
-import { WorkspaceSchema } from "./schema.js";
+import { WorkspaceSchema } from "./schema";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
 import { eq, sql } from "drizzle-orm";
 import { project, projectUsers, users } from "@dragonstart/core/drizzle/schema";
