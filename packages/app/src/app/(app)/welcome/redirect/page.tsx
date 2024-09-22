@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import LoadingSpinner from "~/components/ui/LoadingSpinner";
+import { LoadingSpinner } from "~/components/ui";
 import { api } from "~/trpc/react";
 import { useRouter } from "next/navigation";
 

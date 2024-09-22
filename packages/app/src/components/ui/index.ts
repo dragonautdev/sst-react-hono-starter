@@ -14,3 +14,4 @@ export { default as Label } from "./label";
 export * from "./table";
 export * from "./dialog";
 export * from "./textarea";
+export * from "./loading-spinner";

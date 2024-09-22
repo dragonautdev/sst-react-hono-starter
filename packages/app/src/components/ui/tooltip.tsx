@@ -4,6 +4,8 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 
 import { cn } from "~/utils";
+import { ReactNode } from "react";
+import { HelpCircle } from "lucide-react";
 
 const TooltipProvider = TooltipPrimitive.Provider;
 
@@ -26,5 +28,19 @@ const TooltipContent = React.forwardRef<
   />
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
+
+export interface TooltipProps {
+  children: ReactNode;
+  content: ReactNode | string;
+  side?: "top" | "bottom" | "left" | "right";
+}
+
+export function InfoTooltip(props: Omit<TooltipProps, "children">) {
+  return (
+    <Tooltip {...props}>
+      <HelpCircle className="h-4 w-4 text-gray-500" />
+    </Tooltip>
+  );
+}
 
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
