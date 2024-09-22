@@ -9,14 +9,13 @@ export default $config({
       providers: {
         aws: {
           region: "us-east-1",
-          profile: 'dragonadmin'
+          profile: "dragonadmin",
         },
-      }
+      },
     };
   },
   async run() {
     const infra = await import("./infra");
-
     return {
       restApi: infra.restApi.url,
       trpcApi: infra.trpcApi.url,

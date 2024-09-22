@@ -1,6 +1,6 @@
 export * from "./badge";
 export * from "./tooltip";
-export * from "./button";
+export { default as Button } from "./button";
 export * from "./modals";
 export * from "./Input";
 export { default as Input } from "./Input";
@@ -9,4 +9,8 @@ export * from "./avatar";
 export * from "./copy-button";
 export * from "./BlurImage";
 export * from "./icons";
-export * from "./popover"
+export * from "./popover";
+export { default as Label } from "./label";
+export * from "./table";
+export * from "./dialog";
+export * from "./textarea";

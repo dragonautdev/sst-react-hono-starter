@@ -4,3 +4,6 @@ export { default as LoadingSpinner } from "./loading-spinner";
 export { default as Copy } from "./copy";
 export { default as Tick } from "./Tick";
 export { default as AlertCircleFill } from "./AlertCircleFill";
+export { default as EyeIcon } from "./eyeIcon";
+export { default as LockIcon } from "./lock";
+export { default as Trash2Icon } from "./trash";
