@@ -19,6 +19,7 @@ export default $config({
     return {
       restApi: infra.restApi.url,
       trpcApi: infra.trpcApi.url,
+      app: infra.app.url,
     };
   },
 });

@@ -8,7 +8,6 @@ import SuperJSON from "superjson";
 import { db } from "@dragonstart/core/drizzle";
 import { auth } from "@dragonstart/core/auth";
 
-
 // created for each request
 export const createContext = async ({
   event,
@@ -125,6 +124,7 @@ export const protectedProcedure = t.procedure.use(
 );
 
 export const mergeRouters = t.mergeRouters;
+
 export const createTRPCContext = async (opts: { headers: Headers }) => {
   return {
     ...opts,

@@ -1,5 +1,5 @@
 import { auth } from "./auth";
-import { appDb, kvStore } from "./databases";
+import { appDb, kvStore, postgresDb } from "./databases";
 import { domain } from "./dns";
 
 const APP_URL = $dev ? "http://localhost:3000" : `https://${domain}`;
@@ -24,7 +24,7 @@ export const trpcApiFn = new sst.aws.Function("TrpcApiFn", {
       resources: ["*"],
     },
   ],
-  link: [kvStore, appDb, auth],
+  link: [kvStore, appDb, auth, postgresDb],
 });
 
 export const trpcApi = new sst.aws.Router("TrpcApi", {
