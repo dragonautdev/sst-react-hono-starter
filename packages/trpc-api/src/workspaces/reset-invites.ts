@@ -2,7 +2,7 @@ import { nanoid } from "../utils/functions";
 import { router, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
-import { project } from "@dragonstart/core/drizzle/schema";
+import { project } from "@drizzle/schema";
 import { TRPCError } from "@trpc/server";
 
 export const resetInviteLink = router({

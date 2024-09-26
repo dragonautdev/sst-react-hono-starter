@@ -4,7 +4,7 @@ import { TRPCClientError } from "@trpc/client";
 import { WorkspaceSchema } from "./schema";
 import { router, protectedProcedure, publicProcedure } from "../trpc";
 import { eq, sql } from "drizzle-orm";
-import { project, projectUsers, users } from "@dragonstart/core/drizzle/schema";
+import { project, projectUsers, users } from "@drizzle/schema";
 import { nanoid } from "../utils/functions/nanoid";
 
 export const addWorkSpace = router({

@@ -6,15 +6,17 @@ import { session } from "@dragonstart/auth/session";
 import { ActorContext } from "@dragonstart/core/actor";
 import SuperJSON from "superjson";
 import { db } from "@dragonstart/core/drizzle";
-import { auth } from "@dragonstart/core/auth";
+// import { auth } from "@dragonstart/core/auth";
 
 // created for each request
 export const createContext = async ({
   event,
   context,
 }: CreateAWSLambdaContextOptions<LambdaFunctionURLEvent>) => {
-  const auth_session = await auth();
-  const user = await auth_session?.user;
+  // const auth_session = await auth();
+  // const user = await auth_session?.user;
+  const auth_session = null;
+  const user = null;
   return {
     event,
     context,
@@ -119,9 +121,11 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
   });
 });
 
-export const protectedProcedure = t.procedure.use(
-  errorHandlerMiddleware.unstable_pipe(authMiddleware)
-);
+// export const protectedProcedure = t.procedure.use(
+//   errorHandlerMiddleware.unstable_pipe(authMiddleware)
+// );
+
+export const protectedProcedure = t.procedure;
 
 export const mergeRouters = t.mergeRouters;
 

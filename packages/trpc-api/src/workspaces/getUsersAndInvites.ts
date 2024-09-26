@@ -2,12 +2,7 @@ import { router, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 
-import {
-  projectInvite,
-  projectUsers,
-  role,
-  users,
-} from "@dragonstart/core/drizzle/schema";
+import { projectInvite, projectUsers, role, users } from "@drizzle/schema";
 
 export const getUsersAndInvites = router({
   getUsersAndInvites: protectedProcedure

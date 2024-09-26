@@ -1,7 +1,7 @@
 import { router, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
-import { project, projectUsers } from "@dragonstart/core/drizzle/schema";
+import { project, projectUsers } from "@drizzle/schema";
 import { TRPCClientError } from "@trpc/client";
 
 export const getSpecificWorkSpace = router({

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { router, protectedProcedure } from "../trpc";
-import { project, projectInvite } from "@dragonstart/core/drizzle/schema";
+import { project, projectInvite } from "@drizzle/schema";
 import { and, eq } from "drizzle-orm";
 
 export const deleteTeamInvite = router({

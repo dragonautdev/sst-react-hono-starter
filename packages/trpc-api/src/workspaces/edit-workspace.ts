@@ -1,7 +1,7 @@
 import { router, protectedProcedure } from "../trpc";
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { project } from "@dragonstart/core/drizzle/schema";
+import { project } from "@drizzle/schema";
 import { eq } from "drizzle-orm";
 
 export const editWorkspace = router({

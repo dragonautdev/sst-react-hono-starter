@@ -13,7 +13,6 @@ import SuperJSON from "superjson";
 
 import { type AppRouter } from "@dragonstart/trpc-api/router";
 import { createQueryClient } from "./query-client";
-import { Resource } from "sst";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
@@ -45,31 +44,23 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   const [trpcClient] = useState(() =>
-    // api.createClient({
-    //   links: [
-    //     loggerLink({
-    //       enabled: (op) =>
-    //         process.env.NODE_ENV === "development" ||
-    //         (op.direction === "down" && op.result instanceof Error),
-    //     }),
-    //     unstable_httpBatchStreamLink({
-    //       transformer: SuperJSON,
-    //       // url: getBaseUrl() + "/api/trpc",
-    //       url: Resource.TrpcApi.url,
-    //       headers: () => {
-    //         const headers = new Headers();
-    //         headers.set("x-trpc-source", "nextjs-react");
-    //         return headers;
-    //       },
-    //     }),
-    //   ],
-    // })
     api.createClient({
       links: [
         httpBatchLink({
-          // url: Resource.TrpcApi.url,
-          url: "https://d12s61ijnbf5kk.cloudfront.net",
+          url: `${process.env.NEXT_PUBLIC_API_URL}`,
           transformer: SuperJSON,
+        }),
+        loggerLink({
+          enabled: () => true,
+        }),
+        unstable_httpBatchStreamLink({
+          transformer: SuperJSON,
+          url: `${process.env.NEXT_PUBLIC_API_URL}`,
+          headers: () => {
+            const headers = new Headers();
+            headers.set("x-trpc-source", "nextjs-react");
+            return headers;
+          },
         }),
       ],
     })
@@ -82,10 +73,4 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
       </api.Provider>
     </QueryClientProvider>
   );
-}
-
-function getBaseUrl() {
-  if (typeof window !== "undefined") return window.location.origin;
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
-  return `http://localhost:${process.env.PORT ?? 3000}`;
 }

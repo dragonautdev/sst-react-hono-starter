@@ -1,6 +1,6 @@
 import { router, protectedProcedure } from "../trpc";
 import { eq } from "drizzle-orm";
-import { project, projectUsers } from "@dragonstart/core/drizzle/schema";
+import { project, projectUsers } from "@drizzle/schema";
 
 export const fetchAllWorkspaces = router({
   fetchAllWorkspaces: protectedProcedure.query(async ({ ctx }) => {

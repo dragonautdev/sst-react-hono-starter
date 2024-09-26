@@ -4,5 +4,8 @@
     "strict": true,
     "module": "Preserve",
     "moduleResolution": "Bundler",
+    "paths": {
+      "@drizzle/*": ["../core/src/drizzle/*"]
+    }
   },
 }

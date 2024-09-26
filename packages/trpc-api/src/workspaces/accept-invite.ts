@@ -7,7 +7,7 @@ import {
   project,
   projectInvite,
   projectUsers,
-} from "@dragonstart/core/drizzle/schema";
+} from "../../../core/src/drizzle/schema";
 
 export const acceptInvite = router({
   acceptInvite: protectedProcedure

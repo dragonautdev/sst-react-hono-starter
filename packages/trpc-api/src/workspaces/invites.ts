@@ -8,7 +8,11 @@ import { eq } from "drizzle-orm";
 // import WorkspaceInvite from "~/emails/workspace-invite";
 
 
-import { projectUsers, projectInvite, verificationTokens } from "@dragonstart/core/drizzle/schema";
+import {
+  projectUsers,
+  projectInvite,
+  verificationTokens,
+} from "@drizzle/schema";
 export const invites = router({
   sendInvite: protectedProcedure
     .input(

@@ -2,7 +2,7 @@ import { z } from "zod";
 import { roles } from "./schema";
 import { router, protectedProcedure } from "../trpc";
 import { and, eq } from "drizzle-orm";
-import { project, projectUsers } from "@dragonstart/core/drizzle/schema";
+import { project, projectUsers } from "@drizzle/schema";
 
 export const changeTeamMemberRole = router({
   changeRole: protectedProcedure
