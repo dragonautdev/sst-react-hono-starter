@@ -47,20 +47,25 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
     api.createClient({
       links: [
         httpBatchLink({
-          url: `${process.env.NEXT_PUBLIC_API_URL}`,
+          // url: `${process.env.NEXT_PUBLIC_API_URL}`,
+          url: "https://d12s61ijnbf5kk.cloudfront.net",
           transformer: SuperJSON,
         }),
         loggerLink({
-          enabled: () => true,
+          enabled: (opts) =>
+            (process.env.NODE_ENV === "development" &&
+              typeof window !== "undefined") ||
+            (opts.direction === "down" && opts.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({
           transformer: SuperJSON,
-          url: `${process.env.NEXT_PUBLIC_API_URL}`,
-          headers: () => {
-            const headers = new Headers();
-            headers.set("x-trpc-source", "nextjs-react");
-            return headers;
-          },
+          // url: `${process.env.NEXT_PUBLIC_API_URL}`,
+          url: "https://d12s61ijnbf5kk.cloudfront.net",
+          // headers: () => {
+          //   const headers = new Headers();
+          //   headers.set("x-trpc-source", "nextjs-react");
+          //   return headers;
+          // },
         }),
       ],
     })

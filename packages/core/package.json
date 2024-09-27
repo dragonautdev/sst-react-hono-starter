@@ -29,7 +29,7 @@
     "@paralleldrive/cuid2": "^2.2.2",
     "drizzle-orm": "^0.33.0",
     "electrodb": "^2.14.2",
-    "next-auth": "^4.24.7",
+    "next-auth": "5.0.0-beta.19",
     "postgres": "^3.4.4",
     "remeda": "^2.2.1",
     "sst": "3.1.2",

@@ -2,7 +2,7 @@
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     "module": "Preserve",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     
   },
 }

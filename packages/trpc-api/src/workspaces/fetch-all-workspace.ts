@@ -5,6 +5,7 @@ import { project, projectUsers } from "@drizzle/schema";
 export const fetchAllWorkspaces = router({
   fetchAllWorkspaces: protectedProcedure.query(async ({ ctx }) => {
     // Fetch all workspaces the user is part of
+    console.log(ctx.auth_session);
     const workspaces = await ctx.db
       .select({
         id: project.id,

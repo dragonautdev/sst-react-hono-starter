@@ -6,23 +6,33 @@ import { session } from "@dragonstart/auth/session";
 import { ActorContext } from "@dragonstart/core/actor";
 import SuperJSON from "superjson";
 import { db } from "@dragonstart/core/drizzle";
-// import { auth } from "@dragonstart/core/auth";
+import { auth } from "@dragonstart/core/auth";
+import { ZodError } from "zod";
 
 // created for each request
 export const createContext = async ({
   event,
   context,
 }: CreateAWSLambdaContextOptions<LambdaFunctionURLEvent>) => {
-  // const auth_session = await auth();
-  // const user = await auth_session?.user;
-  const auth_session = null;
-  const user = null;
+  let auth_session = null;
+  let user = null;
+
+  try {
+    auth_session = await auth();
+    // console.log(auth_session, "-------------->>>>>>>>>>>>>>>>>>")
+    user = await auth_session?.user;
+    
+  } catch (cause) {
+    console.error(cause, "**********************");
+  }
+
   return {
     event,
     context,
     db,
     auth_session,
     user,
+    headers: event.headers,
   };
 };
 
@@ -30,6 +40,17 @@ export type ApiRequestContext = Awaited<ReturnType<typeof createContext>>;
 
 export const t = initTRPC.context<ApiRequestContext>().create({
   transformer: SuperJSON,
+  errorFormatter({ shape, error }) {
+    return {
+      ...shape,
+      data: {
+        ...shape.data,
+        zodError:
+          error.cause instanceof ZodError ? error.cause.flatten() : null,
+      },
+    };
+  },
+
 });
 
 export const router = t.router;
@@ -121,12 +142,10 @@ const authMiddleware = t.middleware(async ({ ctx, next }) => {
   });
 });
 
-// export const protectedProcedure = t.procedure.use(
-//   errorHandlerMiddleware.unstable_pipe(authMiddleware)
-// );
-
-export const protectedProcedure = t.procedure;
-
+export const protectedProcedure = t.procedure.use(
+  errorHandlerMiddleware.unstable_pipe(authMiddleware)
+);
+// export const protectedProcedure = t.procedure;
 export const mergeRouters = t.mergeRouters;
 
 export const createTRPCContext = async (opts: { headers: Headers }) => {
